@@ -14,7 +14,7 @@ This guide is split on 5 parts, one for each datapack registry AgriCraft exposes
 - [Add a new fertilizer](./fertilizer)
 - [Add a new weed](./weed)
 
-## Migrating from AgriCraft 3.1.0
+## Migrating from AgriCraft 3.1.0 to 3.2.0
 
 Follow these steps to convert your 3.1.0 json config files:
 
