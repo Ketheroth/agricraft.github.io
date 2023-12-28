@@ -8,13 +8,15 @@ This documentation will guide you on how to customize AgriCraft 3.2.0 with a dat
 It is assumed you know how to create datapacks and resourcepacks for Minecraft.
 
 This guide is split on 5 parts, one for each datapack registry AgriCraft exposes:
-- [Add a new plant](./plant)
+- [Add a new plant](./plant.mdx)
 - [Add a new plant mutation](./mutation)
 - [Add a new soil](./soil)
 - [Add a new fertilizer](./fertilizer)
 - [Add a new weed](./weed)
 
 ## Migrating from AgriCraft 3.1.0 to 3.2.0
+
+[//]: # (TODO: @Ketheroth update this with the use of a custom mod)
 
 Follow these steps to convert your 3.1.0 json config files:
 

@@ -1,6 +1,6 @@
 # Plant
 
-This page will guide you to create a custom plant for AgriCraft.  
+This page will guide you to create a custom plant for AgriCraft.
 
 Before starting to write anything, we have to choose a resource location for the plant.
 We are creating the tomato plant, so let's use `tuto:tomato` as the plant's resource location.
@@ -15,13 +15,13 @@ The data part consists of only one json file defining the plant.
 Below is the location of the file.
 ```
 data
- |- tuto  # the namespace of the resource location of your plant ("tuto" here)
-     |- agricraft
-         |- plant  # agricraft/plant is the folder used by agricraft to load plants in the game
-             |- tomato.json  # The name of the file must match the id of your plant ("tomato" here)
+ └─tuto  # the namespace of the resource location of your plant ("tuto" here) which is also the id of your datapack
+    └─agricraft
+       └─plants  # agricraft/plants is the folder used by agricraft to load plants in the game
+          └─tomato.json  # The name of the file must match the id of your plant ("tomato" here)
 ```
 
-[//]: # (todo: primer for agricraft 3.1.0 json to 3.2.0 json)
+[//]  # (todo: primer for agricraft 3.1.0 json to 3.2.0 json)
 
 The json file have a specific format, described as follows:
 ```json5
@@ -122,7 +122,8 @@ The json file have a specific format, described as follows:
     // maximum light present on the plant
     "max_light": 16,
     // tolerance factor of light values outside the min-max boundaries
-    // todo: describe how the light requirement is computed
+    // the light requirement is met if the block light is in the range:
+    // [min_light - plant_strength * light_tolerance, max_light + plant_strength * light_tolerance]
     "light_tolerance_factor": 0.5,
     // The list of biomes the plant must be in to grow
     // [optional] (default = empty blacklist)
@@ -237,39 +238,7 @@ The json file have a specific format, described as follows:
 
 ### Soil requirements
 
-#### Humidity conditions
-
-| Index | Condition | Alias                |
-|-------|-----------|----------------------|
-| 0     | `arid`    |                      |
-| 1     | `dry`     |                      |
-| 2     | `damp`    | `moist`              |
-| 3     | `wet`     | `standard` `default` |
-| 4     | `watery`  |                      |
-| 5     | `flooded` |                      |
-
-#### Acidity conditions
-
-| Index | Condition           | Alias                                   |
-|-------|---------------------|-----------------------------------------|
-| 0     | `highly_acidic`     | `highly-acidic` `highly acidic`         |
-| 1     | `acidic`            |                                         |
-| 2     | `slightly_acidic`   | `slightly-acidic` `slightly acidic`     |
-| 3     | `neutral`           |                                         |
-| 4     | `slightly_alkaline` | `slightly-alkaline` `slightly alkaline` |
-| 5     | `alkaline`          |                                         |
-| 6     | `highly_alkaline`   | `highly-alkaline` `highly alkaline`     |
-
-#### Nutrients conditions
-
-| Index | Condition   | Alias           |
-|-------|-------------|-----------------|
-| 0     | `none`      | `zero` `empty`  |
-| 1     | `very_low`  | `scarce` `poor` |
-| 2     | `low`       |                 |
-| 3     | `medium`    | `average`       |
-| 4     | `high`      |                 |
-| 5     | `very_high` | `rich`          |
+See the [soil condition values](soil#soil-conditions) for the soil requirements of the plant.
 
 The type of a condition can be one of the following values :
 - `equal`: the condition of the soil must be equal to the plant condition.
@@ -279,7 +248,35 @@ Example: if the humidity condition of the plant is wet, the soil humidity must b
 - `equal_or_hight`: the condition of the soil must be equal or higher than the plant condition.
 Example: if the humidity condition of the plant is wet, the soil humidity must be wet, watery or flooded.
 
+#### How the soil conditions are used
 
+The requirement of the plant is met if the soil value is in the range `plant_requirement ± (plant_tolerance * plant_strength)`.
+
+Example:  
+Assuming the plant has a strength of 10 and this condition in its json file:
+```json
+{
+  "soil_humidity": {
+    "condition": "damp",
+    "type": "equal",
+    "tolerance_factor": 0.2
+  }
+}
+```
+`damp` has a value of 2 (its index in [this chart](soil#humidity)).
+The range of soil humidity for such requirement is `2 ± (0.2 * 10)` which is `[0, 4]`.
+This means the crop can grow on soils with humidity arid, dry, damp, wet, or watery when its strength is 10.
+
+Note that if the type of the requirement was `equal_or_higher` the range would have been `[0, +inf[`
+and `]-inf, 4]` if it was `equal_or_lower`.
+
+#### How to set a specific soil for the plant?
+
+For each soil condition, set the same condition value as the soil in the plan requirement, with `equal` for the type and `0` for the tolerance factor.
+
+#### How to allow other soils after a specific plant strength?
+
+You can use [this tool](requirements-calculator) to determine the tolerance factor for each soil condition.
 
 ## Resourcepack
 
@@ -289,24 +286,33 @@ Below is the location of each file, according to the plant json define above.
 
 ```
 assets
- |- tuto
-     |- lang
-         |- en_us.json
-     |- models
-         |- crop
-             |- tomato_stage0.json
-             |- tomato_stage1.json
-             |- tomato_stage2.json
-             |- tomato_stage3.json
-             |- tomato_stage4.json
-             |- tomato_stage5.json
-             |- tomato_stage6.json
-             |- tomato_stage7.json
-         |- seed
-             |- tomato.json
-     |- textures
-         |- seed
-             |- tomato.png
+ └─tuto
+    ├─lang
+    │  └─en_us.json
+    ├─models
+    │  ├─crop
+    │  │  ├─tomato_stage0.json
+    │  │  ├─tomato_stage1.json
+    │  │  ├─tomato_stage2.json
+    │  │  ├─tomato_stage3.json
+    │  │  ├─tomato_stage4.json
+    │  │  ├─tomato_stage5.json
+    │  │  ├─tomato_stage6.json
+    │  │  └─tomato_stage7.json
+    │  └─seed
+    │     └─tomato.json
+    └─textures
+       ├─plant
+       │  ├─tomato_stage0.png
+       │  ├─tomato_stage1.png
+       │  ├─tomato_stage2.png
+       │  ├─tomato_stage3.png
+       │  ├─tomato_stage4.png
+       │  ├─tomato_stage5.png
+       │  ├─tomato_stage6.png
+       │  └─tomato_stage7.png
+       └─seed
+          └─tomato.png
 ```
 
 ### Crop Models
@@ -318,9 +324,16 @@ This means you have to define one model per growth stage you defined in your pla
 
 AgriCraft provides multiple default models for ease of use and are described as follows:
 
-[//]: # (TODO: @Ketheroth describe each render type with an image for each)
+import HashImage from './img/hash.png';
+import PlusImage from './img/plus.png';
+import CrossImage from './img/cross.png';
+import GourdImage from './img/gourd.png';
+//import RhombusImage from './img/rhombus.png';
 
 - `crop_hash`: 4 faces parallel with the block faces, similar to Vanilla wheat.
+
+<img alt="hash crop image" src={HashImage} style={{display: "block", margin: "auto", width: "700px"}}/>
+
 ```json
 {
   "parent": "agricraft:crop/crop_hash",
@@ -330,6 +343,9 @@ AgriCraft provides multiple default models for ease of use and are described as 
 }
 ```
 - `crop_plus`: Similar to cross, but instead 4 crosses at each crop stick.
+
+<img alt="plus crop image" src={PlusImage} style={{display: "block", margin: "auto", width: "700px"}}/>
+
 ```json
 {
   "parent": "agricraft:crop/crop_plus",
@@ -348,29 +364,53 @@ AgriCraft provides multiple default models for ease of use and are described as 
   }
 }
 ```
-- `crop_gourd`: i.e. for pumpkins and melons: renders a hash pattern with the `crop` texture, and a small gourd with the `gourd` texture.
+- `crop_cross`:  2 faces along the diagonals, similar to Vanilla flowers.
+
+<img alt="cross crop image" src={CrossImage} style={{display: "block", margin: "auto", width: "700px"}}/>
+
 ```json
 {
-  "parent": "agricraft:crop/tall_crop_plus",
+  "parent": "agricraft:crop/crop_cross",
+  "textures": {
+    "crop": "<your_crop_texture_here>"
+  }
+}
+```
+- `crop_gourd`: i.e. for pumpkins and melons: renders a hash pattern with the `crop` texture, and a small gourd with the `gourd` texture.
+
+<img alt="gourd crop image" src={GourdImage} style={{display: "block", margin: "auto", width: "700px"}}/>
+
+```json
+{
+  "parent": "agricraft:crop/crop_gourd",
   "textures": {
     "crop": "<your_crop_texture_here>",
     "gourd": "<your_gourd_texture_here>"
   }
 }
 ```
+- `crop_rhombus`: 4 faces spanning between the centers of the block faces, only used for weeds.
 
-old:
-- **Hashtag** (#) : 
-- **Cross**   (x) : 2 faces along the diagonals, similar to Vanilla flowers.
-- **Plus**    (+) : 
-- **Gourd**   (@) : 
-- **Rhombus** (◇) : 4 faces spanning between the centers of the block faces, only used for weeds.
+[//]: # (TODO: @Ketheroth do this when weeds are done)
+[//]: # (<img alt="rhombus crop image" src={RhombusImage} style={{display: "block", margin: "auto", width: "700px"}}/>)
+
+```json
+{
+  "parent": "agricraft:crop/crop_rhombus",
+  "textures": {
+    "crop": "<your_crop_texture_here>"
+  }
+}
+```
 
 ### Seed models
 
 AgriCraft will try to load the model for the default plant seed from the path `<namespace>/models/seed/<id>.json`.
 
-AgriCraft also load textures from `textures/seed/` too, so you can put your seed textures there if you want.
+### Textures
+
+AgriCraft will also load textures from `textures/plant/` and `textures/seed/` too, so you can put your plant and seed textures there if you want.
+
 
 ### Translation
 
