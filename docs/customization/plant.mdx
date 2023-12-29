@@ -301,7 +301,7 @@ assets
     │  │  └─tomato_stage7.json
     │  └─seed
     │     └─tomato.json
-    └─textures
+    └─textures                  // the textures files are optionals, they depends on whatever textures you used in the models
        ├─plant
        │  ├─tomato_stage0.png
        │  ├─tomato_stage1.png
@@ -322,7 +322,7 @@ It will load the plant models in `<namespace>/models/crop/<id>_stage<stage>.json
 to the namespace and the id of the plant (`tuto` and `tomato` in our example) and stage correspond to the growth stage of the plant.
 This means you have to define one model per growth stage you defined in your plant json.
 
-AgriCraft provides multiple default models for ease of use and are described as follows:
+You can use whatever model you want for your plant, but AgriCraft provides multiple default models for ease of use and are described as follows:
 
 import HashImage from './img/hash.png';
 import PlusImage from './img/plus.png';
@@ -337,6 +337,18 @@ import GourdImage from './img/gourd.png';
 ```json
 {
   "parent": "agricraft:crop/crop_hash",
+  "textures": {
+    "crop": "<your_crop_texture_here>"
+  }
+}
+```
+- `crop_cross`:  2 faces along the diagonals, similar to Vanilla flowers.
+
+<img alt="cross crop image" src={CrossImage} style={{display: "block", margin: "auto", width: "700px"}}/>
+
+```json
+{
+  "parent": "agricraft:crop/crop_cross",
   "textures": {
     "crop": "<your_crop_texture_here>"
   }
@@ -361,18 +373,6 @@ import GourdImage from './img/gourd.png';
   "textures": {
     "crop": "<your_crop_texture_here>",
     "crop_top": "<your_crop_top_texture_here>"
-  }
-}
-```
-- `crop_cross`:  2 faces along the diagonals, similar to Vanilla flowers.
-
-<img alt="cross crop image" src={CrossImage} style={{display: "block", margin: "auto", width: "700px"}}/>
-
-```json
-{
-  "parent": "agricraft:crop/crop_cross",
-  "textures": {
-    "crop": "<your_crop_texture_here>"
   }
 }
 ```
