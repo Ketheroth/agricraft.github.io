@@ -14,11 +14,11 @@ This means that if wheat plants dropping wheat is too vanilla for you, you can e
 This page serves as your definitive guide to modding AgriCraft in this manner, as to make you essentially a meta-modder.
 
 AgriCraft JSON Files are currently broken down into five categories:
-- [AgriPlants](./plant)
-- [AgriWeeds](./weed)
-- [AgriMutations](./mutation)
-- [AgriSoils](./soil)
-- [AgriFertilizers](./fertilizer)
+- [AgriPlants](./plant.md)
+- [AgriWeeds](./weed.md)
+- [AgriMutations](./mutation.md)
+- [AgriSoils](./soil.md)
+- [AgriFertilizers](./fertilizer.md)
 
 These JSON files may be placed in any sub-directory of `config/agricraft/json/defaults`.
 Specially named folders, herein known as AgriSets, allow for the conditional loading of a large group of plants based on the presence of mods.
