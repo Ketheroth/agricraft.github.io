@@ -1,68 +1,52 @@
 # Mutation Chance Calculator
 
-export class Calculator extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            p1f: 1,
-            p1m: 1,
-            p2f: 1,
-            p2m: 1,
-            prob2p: 0,
-            prob1p: 0,
-            probm: 0,
-            probgm: 0
-        };
-        this.update = this.update.bind(this);
-    }
-    update() {
-        let maxFertility = 10, maxMutativity = 10;
-        let p1Selected = this.state.p1f / maxFertility;
-        let p2Selected = this.state.p2f / maxFertility;
-        let bothSelected = p1Selected * p2Selected;
-        let onlyP1Selected = 2 * (1 - p1Selected) * p1Selected;
-        let onlyP2Selected = 2 * (1 - p2Selected) * p2Selected;
-        let oneOfThemSelected = onlyP1Selected + onlyP2Selected;
-        let bestM = this.state.p1m > this.state.p2m ? this.state.p1m : this.state.p2m;
-        let probM = bestM / maxMutativity;
-        let probGoodM = (bestM + maxMutativity) / 2 / maxMutativity;
-        let realProbM = bothSelected * probM;
-        let realGoodProb = realProbM * probGoodM;
-        this.setState({
-            prob2p: bothSelected * 100,
-            prob1p: oneOfThemSelected * 100,
-            probm: realProbM * 100,
-            probgm: realGoodProb * 100
-        });
-    }
-    componentDidMount() {
-        this.update();
-    }
-    render() {
-        return <div>
-            <div>
-                <p>Parent 1 :</p>
-                <label htmlFor="p1f">Fertility </label>
-                <input type="number" id="p1f" max="10" min="1" value={this.state.p1f} onChange={e => this.setState({p1f: parseInt(e.target.value)}, () => this.update())}/><br/>
-                <label htmlFor="p1m">Mutativity </label>
-                <input type="number" id="p1m" max="10" min="1" value={this.state.p1m} onChange={e => this.setState({p1m: parseInt(e.target.value)}, () => this.update())}/>
-            </div>
-            <br/>
-            <div>
-                <p>Parent 2 :</p>
-                <label htmlFor="p2f">Fertility </label>
-                <input type="number" id="p2f" max="10" min="1" value={this.state.p2f} onChange={e => this.setState({p2f: parseInt(e.target.value)}, () => this.update())}/><br/>
-                <label htmlFor="p2m">Mutativity </label>
-                <input type="number" id="p2m" max="10" min="1" value={this.state.p2m} onChange={e => this.setState({p2m: parseInt(e.target.value)}, () => this.update())}/>
-            </div>
-            <br/>
-            <p>Results:</p>
-            <p>Probability of two parents to be selected (=mutation): {this.state.prob2p.toFixed(2)}%</p>
-            <p>Probability of only one parent to be selected (=clone): {this.state.prob1p.toFixed(2)}%</p>
-            <p>Probability of a mutation to happen: {this.state.probm.toFixed(2)}%</p>
-            <p>Probability of a good mutation to happen: {this.state.probgm.toFixed(2)}%</p>
+import {useState} from 'react';
+export function Calculator() {
+    const [p1f, setP1f] = useState(1);
+    const [p1m, setP1m] = useState(1);
+    const [p2f, setP2f] = useState(1);
+    const [p2m, setP2m] = useState(1);
+
+    let maxFertility = 10, maxMutativity = 10;
+    let p1Selected = p1f / maxFertility;
+    let p2Selected = p2f / maxFertility;
+    let bothSelected = p1Selected * p2Selected;
+    let onlyP1Selected = 2 * (1 - p1Selected) * p1Selected;
+    let onlyP2Selected = 2 * (1 - p2Selected) * p2Selected;
+    let oneOfThemSelected = onlyP1Selected + onlyP2Selected;
+    let bestM = p1m > p2m ? p1m : p2m;
+    let probM = bestM / maxMutativity;
+    let probGoodM = (bestM + maxMutativity) / 2 / maxMutativity;
+    let realProbM = bothSelected * probM;
+    let realGoodProb = realProbM * probGoodM;
+    let prob2p = (bothSelected * 100);
+    let prob1p = (oneOfThemSelected * 100);
+    let probm = (realProbM * 100);
+    let probgm = (realGoodProb * 100);
+
+    return <div>
+        <div>
+            <p>Parent 1 :</p>
+            <label htmlFor="p1f">Fertility </label>
+            <input type="number" id="p1f" max="10" min="1" value={p1f} onChange={e => setP1f(parseInt(e.target.value))}/><br/>
+            <label htmlFor="p1m">Mutativity </label>
+            <input type="number" id="p1m" max="10" min="1" value={p1m} onChange={e => setP1m(parseInt(e.target.value))}/>
         </div>
-    }
+        <br/>
+        <div>
+            <p>Parent 2 :</p>
+            <label htmlFor="p2f">Fertility </label>
+            <input type="number" id="p2f" max="10" min="1" value={p2f} onChange={e => setP2f(parseInt(e.target.value))}/><br/>
+            <label htmlFor="p2m">Mutativity </label>
+            <input type="number" id="p2m" max="10" min="1" value={p2m} onChange={e => setP2m(parseInt(e.target.value))}/>
+        </div>
+        <br/>
+        <p>Results:</p>
+        <p>Probability of two parents to be selected (=mutation): {parseFloat(prob2p.toFixed(2))}%</p>
+        <p>Probability of only one parent to be selected (=clone): {parseFloat(prob1p.toFixed(2))}%</p>
+        <p>Probability of a mutation to happen: {parseFloat(probm.toFixed(2))}%</p>
+        <p>Probability of a good mutation to happen: {parseFloat(probgm.toFixed(2))}%</p>
+    </div>
 }
 
 ## Calculator
