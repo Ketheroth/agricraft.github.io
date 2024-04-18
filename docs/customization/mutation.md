@@ -13,8 +13,6 @@ There can be multiple mutation for the same plant, as long as the id of the muta
 The json file must have the following structure:
 ```json5
 {
-	// if the mutation will be registered in the game
-	"enabled": true,
 	// mods needed for the mutation to be loaded
 	"mods": [],
 	// the chance of the mutation occurring on any given random tick, in the range [0.0, 1.0]

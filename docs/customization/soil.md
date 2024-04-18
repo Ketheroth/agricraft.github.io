@@ -10,8 +10,6 @@ In our case it will be `tuto` and `tomato_soil`.
 The structure of the json file is the following:
 ```json5
 {
-	// if the soil will be registered in the game
-	"enabled": true,
 	// mods needed for the soil to be loaded
 	"mods": [],
 	// an array of blocks representing this soil

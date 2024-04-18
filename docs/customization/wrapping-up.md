@@ -36,6 +36,8 @@ assets
 data
  └─tuto
     └─agricraft
+       ├─fertilizers
+       │  └─tomato_fertilizer.json
        ├─plants
        │  └─tomato.json
        ├─mutations

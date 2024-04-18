@@ -2,7 +2,7 @@
 
 ## How do I prevent a plant from spawning? How do I disable it?
 
-In the corresponding JSON file, change the `enabled` value, or replace the file with and empty file.
+Like you would disable a recipe in minecraft, create a datapack that replace the corresponding JSON file by a file that contains just the following text: `{}`.
 
 ## How do I disable weeds?
 
@@ -36,11 +36,11 @@ or ask us to add it on GitHub or Discord.
 Right-click to open the seed analyzer and Shift-right-click with a seed or a journal in your hand to insert it in the analyzer.
 If the journal is present in the analyzer, and you analyze a seed, the page for that seed will show up in the journal.
 
-## How can I use the Seed Bag?
-
-Hold the bag in your off-hand, then right click with a seed in your main hand to put the seed in the bag,
-or with an empty hand to retrieve one seed. You can shake the bag (shift + right click) to change the order of the seeds.
-You can plant seeds directly from the bag with a right click from the main hand.
+[//]: # (## How can I use the Seed Bag?)
+[//]: # ()
+[//]: # (Hold the bag in your off-hand, then right click with a seed in your main hand to put the seed in the bag,)
+[//]: # (or with an empty hand to retrieve one seed. You can shake the bag &#40;shift + right click&#41; to change the order of the seeds.)
+[//]: # (You can plant seeds directly from the bag with a right click from the main hand.)
 
 ## How can I give myself a seed with specific genes values?
 
