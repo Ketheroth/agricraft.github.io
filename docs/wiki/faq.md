@@ -8,11 +8,6 @@ Like you would disable a recipe in minecraft, create a datapack that replace the
 
 Same as with any other plant.
 
-As part of the transition to using customizable JSON files for all the plants, weeds are now no longer special or
-different from other plants. What gives them that annoying nature is that they have a non-zero chance to spontaneously spawn,
-and because they're aggressive they have the ability to technically replace neighboring plants.
-Except that, by default they're too weak to do that really.
-
 ## Why won't some plant seeds don't stack with others?
 
 Probably because one of those stack doesn't have the same genes as the other. Each gene is saved in the itemstack.

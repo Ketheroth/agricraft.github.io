@@ -15,7 +15,7 @@ export function Calculator() {
     let onlyP2Selected = 2 * (1 - p2Selected) * p2Selected;
     let oneOfThemSelected = onlyP1Selected + onlyP2Selected;
     let bestM = p1m > p2m ? p1m : p2m;
-    let probM = bestM / maxMutativity;
+    let probM = 1 - ((1 - bestM / maxMutativity) / 2);
     let probGoodM = (bestM + maxMutativity) / 2 / maxMutativity;
     let realProbM = bothSelected * probM;
     let realGoodProb = realProbM * probGoodM;
@@ -74,9 +74,9 @@ A new plant is produced with a random allele (dominant or recessive) from each p
 
 ### Mutation
 
-A random mutation happen after generating a random number (between min-mutativity and max-mutativity).
-If it is less than the mutativity stat of the gene, the mutation happen.
+A random mutation happen after generating a random number (between 0.0 and 1.0).
+If it is greater than a threshold (computed by `(1.0 - gene_mutativity / max_mutativity) / 2.0`), the mutation happen.
 A mutation is either good (+1 is stat) or bad (-1 in stat). It is determined by another random number.
-If `random(min-mutativity, max-mutativity) < (max-mutativity + gene-mutativity)/2` then the mutation is good, else the mutation is bad.
-Mutativity stat of 1 results in 25/50/25 probability of positive/no/negative mutation.
+If `random(min_mutativity, max_mutativity) < (max_mutativity + gene_mutativity)/2` then the mutation is good, else the mutation is bad.
+Mutativity stat of 1 results in 30.25/50/24.75 probability of positive/no/negative mutation.
 Mutativity stat of 10 results in 100/0/0 probability of positive/no/negative mutation.

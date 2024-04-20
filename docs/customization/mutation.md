@@ -13,16 +13,16 @@ There can be multiple mutation for the same plant, as long as the id of the muta
 The json file must have the following structure:
 ```json5
 {
-	// mods needed for the mutation to be loaded
-	"mods": [],
-	// the chance of the mutation occurring on any given random tick, in the range [0.0, 1.0]
-	"chance": 0.75,
-	// the plant id of the child resulting of the mutation
-	"child": "tuto:tomato",
-	// the plant id of the first parent
-	"parent1": "minecraft:poppy",
-	// the plant id of the second parent
-	"parent2": "minecraft:potato"
+  // mods needed for the mutation to be loaded
+  "mods": [],
+  // the chance of the mutation occurring on any given random tick, in the range [0.0, 1.0]
+  "chance": 0.75,
+  // the plant id of the child resulting of the mutation
+  "child": "tuto:tomato",
+  // the plant id of the first parent
+  "parent1": "minecraft:poppy",
+  // the plant id of the second parent
+  "parent2": "minecraft:potato"
 }
 
 ```

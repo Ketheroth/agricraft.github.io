@@ -10,27 +10,27 @@ In our case it will be `tuto` and `tomato_soil`.
 The structure of the json file is the following:
 ```json5
 {
-	// mods needed for the soil to be loaded
-	"mods": [],
-	// an array of blocks representing this soil
-	"variants": [
-		{
-			// tag or element id of blocks to use
-			"block": "minecraft:farmland",
-			// list of blockstates the block must match
-			"states": []
-		}
-	],
-	// the humidity condition of the block (see below for more information)
-	"humidity": "wet",
-	// the acidity condition of the block
-	"acidity": "slightly_acidic",
-	// the nutrient condition of the block
-	"nutrients": "high",
-	// a value used to modify the growth of the plants on this soil.
-	// 1.0 is the default growth of the plant, a lower value will decrease the speed of growth,
-	// and a higher value will increase its speed.
-	"growth_modifier": 1.0,
+  // mods needed for the soil to be loaded
+  "mods": [],
+  // an array of blocks representing this soil
+  "variants": [
+    {
+      // tag or element id of blocks to use
+      "block": "minecraft:farmland",
+      // list of blockstates the block must match
+      "states": []
+    }
+  ],
+  // the humidity condition of the block (see below for more information)
+  "humidity": "wet",
+  // the acidity condition of the block
+  "acidity": "slightly_acidic",
+  // the nutrient condition of the block
+  "nutrients": "high",
+  // a value used to modify the growth of the plants on this soil.
+  // 1.0 is the default growth of the plant, a lower value will decrease the speed of growth,
+  // and a higher value will increase its speed.
+  "growth_modifier": 1.0,
 }
 ```
 
